@@ -1,6 +1,8 @@
-import React from 'react'
-import { Container,Row,Col ,Form,Label,Control,Button} from 'react-bootstrap'
-import Layout from '../../Component/Layout'
+import React from 'react';
+import { Container,Row,Col ,Form,Button} from 'react-bootstrap';
+import Input from  '../../Component/UI/index';
+import Layout from '../../Component/Layout';
+
 const  SignUp = (props) => {
     return (
         <>
@@ -9,16 +11,48 @@ const  SignUp = (props) => {
                     <Row className="mx-auto">
                         <Col xs={5}>
                             <Form>
-                                    <Form.Group as={Col} controlId="formGridEmail">
-                                        <Form.Label>Email</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
-                                    </Form.Group>
 
-                                    <Form.Group as={Col} controlId="formGridPassword">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
-                                    </Form.Group>
-        
+                                  <Col>
+                                        <Input 
+                                                label="First Name"
+                                                placeholder="First Name"
+                                                value=""
+                                                type="text"
+                                                onChange={()=>{}}
+
+                                        />
+                                  </Col>
+                                  <Col>
+                                        <Input 
+                                                label="Last Name"
+                                                placeholder="Last Name"
+                                                value=""
+                                                type="text"
+                                                onChange={()=>{}}
+
+                                        />
+                                  </Col>   
+
+                                  <Col>
+                                        <Input 
+                                                label="Email"
+                                                placeholder="Email"
+                                                value=""
+                                                type="email"
+                                                onChange={()=>{}}
+
+                                        />
+                                  </Col> 
+                                  <Col>
+                                        <Input 
+                                                label="password"
+                                                placeholder="password"
+                                                value=""
+                                                type="password"
+                                                onChange={()=>{}}
+
+                                        />
+                                  </Col> 
                                     <Button variant="primary" type="submit">
                                         Submit
                                     </Button>
