@@ -1,13 +1,24 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router,Route, Link, Switch } from "react-router-dom";
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './Container/Home/index';
+import SignIn from './Container/Signin/index';
+import SignUp from './Container/Signup/index';
 
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Header from '../src/Component/Layout/Header'
+
+
 function App() {
   return (
     <div className="App">
-       <Header></Header>
+        <Router>
+              <Switch>
+                    <Route path="/" exact component={Home}/>
+                    <Route path="/signin"component={SignIn}/>
+                    <Route path="/signup"component={SignUp}/>
+              </Switch>
+        </Router>
     </div>
   );
 }
