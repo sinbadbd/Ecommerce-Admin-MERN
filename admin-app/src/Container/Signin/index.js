@@ -1,23 +1,32 @@
-import React from 'react'
-import { Container,Row,Col ,Form,Label,Control,Button} from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Container,Row,Col ,Form,Button } from 'react-bootstrap'
 import Layout from '../../Component/Layout'
 import Input from  '../../Component/UI/index';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 
 import { login } from '../../actions';
+import { Redirect } from 'react-router-dom';
 
 const  SignIn = (props) => {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth)
 
     const userLogin = (e) => {
         e.preventDefault();
         const user = {
-            email: 'imu@gmail.com',
-            password: '123456'
+            email, password
         }
         dispatch(login(user));
+    }
+
+    if(auth.authenticate){
+        return <Redirect to={`/`}/>
     }
 
     return (
@@ -31,19 +40,19 @@ const  SignIn = (props) => {
                                         <Input 
                                                 label="Email"
                                                 placeholder="Email"
-                                                value=""
+                                                value={email}
                                                 type="email"
-                                                onChange={()=>{}}
+                                                onChange={(e)=> setEmail(e.target.value)}
 
                                         />
                                   </Col> 
                                   <Col>
                                         <Input 
-                                                label="password"
+                                                label="Password"
                                                 placeholder="password"
-                                                value=""
+                                                value={password}
                                                 type="password"
-                                                onChange={()=>{}}
+                                                onChange={(e)=>setPassword(e.target.value)}
 
                                         />
                                   </Col> 
