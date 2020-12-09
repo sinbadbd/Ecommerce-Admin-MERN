@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils'
 import {authConstants} from '../actions/constance'
 
 const initState = {
@@ -35,11 +34,3 @@ export default (state = initState, action) => {
     }
     return state;
 }
-/*
-  "_id": "5fc6728a9fa9c60eaf99a773",
-        "firstName": "admin",
-        "lastName": "imran admin",
-        "email": "admin1234@gmail.com",
-        "role": "admin",
-        "fullName": "admin imran admin"
-*/

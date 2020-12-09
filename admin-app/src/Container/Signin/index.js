@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { Container,Row,Col ,Form,Button } from 'react-bootstrap'
 import Layout from '../../Component/Layout'
 import Input from  '../../Component/UI/index';
@@ -14,8 +14,8 @@ const  SignIn = (props) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const dispatch = useDispatch();
     const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch();
 
     const userLogin = (e) => {
         e.preventDefault();
