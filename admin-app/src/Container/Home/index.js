@@ -1,14 +1,21 @@
 import React from 'react'
-import { Jumbotron } from 'react-bootstrap'
+import { Col, Container, Jumbotron, Row } from 'react-bootstrap'
 import Layout from '../../Component/Layout'
 
 const  Home = (props) => {
     return (
         <>
             <Layout>
-                <Jumbotron>
-                    <h1>Admin Panel</h1>
-                </Jumbotron>
+                <Container fluid>
+                    <Row>
+                        <Col lg={2} className="bg-light h-vh100">
+                                <h1>side</h1>
+                        </Col> 
+                        <Col lg={10}>
+                            <p>Container</p>
+                        </Col>
+                    </Row>
+                </Container>
             </Layout>
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState } from 'react'
 import { Container,Row,Col ,Form,Button } from 'react-bootstrap'
 import Layout from '../../Component/Layout'
 import Input from  '../../Component/UI/index';
@@ -7,6 +7,7 @@ import { useDispatch,useSelector } from 'react-redux';
 
 import { login } from '../../actions';
 import { Redirect } from 'react-router-dom';
+
 
 const  SignIn = (props) => {
 

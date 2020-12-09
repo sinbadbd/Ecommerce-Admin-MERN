@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import './App.css';
+import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './Container/Home/index';
 import SignIn from './Container/Signin/index';
@@ -15,11 +15,11 @@ function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
 
-  useEffect(() => {
-    if (!auth.authenticate) {
-      dispatch(isUserLoggedIn());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!auth.authenticate) {
+  //     dispatch(isUserLoggedIn());
+  //   }
+  // }, []);
 
   return (
     <div className="App"> 
