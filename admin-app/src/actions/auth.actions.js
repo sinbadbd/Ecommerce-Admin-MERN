@@ -25,7 +25,7 @@ export const login = (user) =>{
         }else{
             if(res.status === 4000){
                 dispatch({
-                    type: authConstants.LOGIN_SUCCESS,
+                    type: authConstants.LOGIN_FAILURE,
                     payload: { error: res.data.error }
                 })
             }
@@ -33,6 +33,9 @@ export const login = (user) =>{
 
     }
 }
+
+
+
 export const isUserLoggedIn = () => {
     return async dispatch => {
         const token = localStorage.getItem('token');
