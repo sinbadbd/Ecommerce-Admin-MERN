@@ -32,9 +32,9 @@ const SignUp = (props) => {
         return <Redirect to={`/`} />
     }
 
-    // if (user.loading) {
-    //     return <p>Loading...!</p>;
-    // }
+    if (user.loading) {
+        return <p>Loading...!</p>;
+    }
 
     return (
         <>

@@ -21,7 +21,7 @@ export const login = (user) =>{
                 payload:{
                     token, user
                 }
-            })
+            });
         }else{
             if(res.status === 4000){
                 dispatch({
@@ -40,7 +40,7 @@ export const isUserLoggedIn = () => {
     return async dispatch => {
         const token = localStorage.getItem('token');
         if(token){
-            const user = localStorage.getItem('user');
+            const user = JSON.parse(localStorage.getItem('user'));
             dispatch({
                 type: authConstants.LOGIN_SUCCESS,
                 payload:{
@@ -57,10 +57,20 @@ export const isUserLoggedIn = () => {
 }
 export const signout = () => {
     return async dispatch => {
-        localStorage.clear();
-        dispatch({
-            type: authConstants.LOGOUT_REQUEST
-        })
+        dispatch({type: authConstants.LOGIN_REQUEST})
+        const res = await axios.post('/admin/signout');
+        if(res === 2000){
+            dispatch({
+                type: authConstants.LOGUOUT_SUCCESS
+            })
+        }else{
+            dispatch({
+                type: authConstants.LOGOUT_FAILURE,
+                payload: { error: res.data.error}
+            })
+        }
+        // localStorage.clear();
+
     }
 }
 
