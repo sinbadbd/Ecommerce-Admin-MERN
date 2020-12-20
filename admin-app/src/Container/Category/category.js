@@ -112,10 +112,10 @@ const Category = (props) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    {/* <Button variant="secondary" onClick={handleClose}>
                         Close
-                    </Button>
-                    <Button variant="primary" onSubmit={addCategory}>
+                    </Button> */}
+                    <Button variant="primary" onClick={handleClose}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

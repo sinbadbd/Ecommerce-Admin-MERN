@@ -14,8 +14,8 @@ const Layout = (props) => {
                         <Row>
                             <Col lg={2} className="bg-light h-vh100">
                                 <ul className="nav flex-column">
-                                    <li className="nav-item">
-                                        <NavLink to={`/`}>Home</NavLink>
+                                    <li className="nav-item ">
+                                        <NavLink className="active" to={`/`}>Home</NavLink>
                                     </li>
                                     <li className="nav-item">
                                         <NavLink to={`/category`}>Category</NavLink>
