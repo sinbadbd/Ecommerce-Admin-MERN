@@ -49,7 +49,7 @@ export const isUserLoggedIn = () => {
             })
         }else{
             dispatch({
-                type: authConstants.LOGIN_SUCCESS,
+                type: authConstants.LOGIN_FAILURE,
                 payload: { error: `Faild to login` }
             }) 
         }
@@ -57,9 +57,10 @@ export const isUserLoggedIn = () => {
 }
 export const signout = () => {
     return async dispatch => {
-        dispatch({type: authConstants.LOGIN_REQUEST})
+        dispatch({type: authConstants.LOGOUT_REQUEST})
         const res = await axios.post('/admin/signout');
-        if(res === 2000){
+        if(res.status === 200){
+            localStorage.clear();
             dispatch({
                 type: authConstants.LOGUOUT_SUCCESS
             })
@@ -69,8 +70,6 @@ export const signout = () => {
                 payload: { error: res.data.error}
             })
         }
-        // localStorage.clear();
-
     }
 }
 
