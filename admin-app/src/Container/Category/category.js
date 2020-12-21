@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row, Modal, Button, Form } from "react-bootstrap";
+import React, {  useState } from "react";
+import { Col, Container, Row, Form , Button} from "react-bootstrap";
 import Layout from "../../Component/Layout";
+import Input from "../../Component/UI/Input/index";
+import Modal from "../../Component/UI/Modal/index";
+
+
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategory, addCategory } from "../../actions";
-// import { Input } from "../Component/UI/Input/index";
-import Input from "../../Component/UI/index";
+import { addCategory } from "../../actions"; 
+
 
 const Category = (props) => {
     const category = useSelector((state) => state.category);
@@ -16,17 +19,17 @@ const Category = (props) => {
     const [categoryImage, setcategoryImage] = useState();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getAllCategory());
-    }, []);
 
     const handleClose = () => {
         const form = new FormData();
         form.append('name', categoryName);
         form.append('parentId', categoryParentId);
-        form.append('categoryImage', categoryImage);
+        form.append('categoryImage', categoryImage); 
 
         dispatch(addCategory(form));
+
+        setcategoryName('');
+        setcategoryParentId('');
 
         setShow(false);
     }
@@ -36,25 +39,25 @@ const Category = (props) => {
         let myCategories = [];
         for (let category of categories) {
             myCategories.push(
-                <li className="nav-item" key={category.slug}>
+                <li className="nav-item" key={category.name}>
                     {category.name}
-                </li>
+                    {category.childreen.length > 0 ? (<ul className="">{renderCategories(category.childreen)}</ul>)  : null}
+                 </li>
             );
         }
         return myCategories;
     };
 
- 
-    const createCategoryList = (categories, option = []) => {
-        for(let category of categories){
-            option.push({value:category._id,name:category.name})
 
-            // children: Now it now working from API
-            // if(category.children.label >0) {
-            //     createCategoryList(category.children,option)
-            // }
+    const createCategoryList = (categories, option = []) => {
+        for (let category of categories) {
+            option.push({ value: category._id, name: category.name })
+
+             if(category.childreen.length > 0) {
+                createCategoryList(category.childreen, option)
+            }
         }
-        return option
+        return option;
     }
 
     const handleCategoryImageChange = (e) => {
@@ -71,7 +74,7 @@ const Category = (props) => {
                     <Col>
                         <Button variant="primary" onClick={handleShow}>
                             Add
-            </Button>{" "}
+                        </Button>{" "}
                     </Col>
                 </Row>
                 <Row>
@@ -84,42 +87,31 @@ const Category = (props) => {
                 </Row>
             </Container>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Category</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Input
-                            label="Category Name"
-                            placeholder="Name"
-                            value={categoryName}
-                            type="email"
-                            onChange={(e) => setcategoryName(e.target.value)}
-                        />
-                        <select className="form-control mb-3" value={categoryParentId} onChange={(e) =>setcategoryParentId(e.target.value)}>
+            <Modal show={show} handleClose={handleClose} title={'Add Category'}>
+                <Form>
+                    <Input
+                        label="Category Name"
+                        placeholder="Name"
+                        value={categoryName}
+                        type="email"
+                        onChange={(e) => setcategoryName(e.target.value)}
+                    />
+                    <select className="form-control mb-3" value={categoryParentId} onChange={(e) => setcategoryParentId(e.target.value)}>
+                        <option>Select category</option> 
+                        {
+                            createCategoryList(category.categories).map(option =>
+                                <option key={option.value} value={option.value}>{option.name}</option>)
+                        }
+                    </select>
 
-                            { 
-                                createCategoryList(category.categories).map(option =>
-                                    <option key={option.value} value={option.value}>{option.name}</option>)
-                            }
-                        </select>
+                    <div className="custom-file form-control">
+                        <input type="file" className="custom-file-input" name="categoryImage" onChange={handleCategoryImageChange}></input>
+                        <label className="custom-file-label"  >Choose file</label>
+                    </div>
+                </Form>
 
-                        <div className="custom-file form-control">
-                            <input type="file" className="custom-file-input" name="categoryImage" onChange={handleCategoryImageChange}></input>
-                            <label className="custom-file-label"  >Choose file</label>
-                        </div>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    {/* <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button> */}
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
             </Modal>
+
         </Layout>
     );
 };

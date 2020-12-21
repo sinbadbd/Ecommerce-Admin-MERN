@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import Input from '../../Component/UI/index';
+import Input from '../../Component/UI/Input/index';
 import Layout from '../../Component/Layout';
 import { Redirect } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';

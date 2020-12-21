@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Container,Row,Col ,Form,Button } from 'react-bootstrap'
 import Layout from '../../Component/Layout'
-import Input from  '../../Component/UI/index';
+import Input from  '../../Component/UI/Input/index';
 
 import { useDispatch,useSelector } from 'react-redux';
 

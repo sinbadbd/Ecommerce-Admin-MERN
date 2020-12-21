@@ -5,7 +5,7 @@ export const addProduct = (form) => {
     return async dispatch => {
         const res = await axios.post('product/create', form);
        console.log(res)
-        if (res.status === 2000){
+        if (res.status === 201){
 
         }
     }
