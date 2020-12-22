@@ -23,7 +23,7 @@ export const login = (user) =>{
                 }
             });
         }else{
-            if(res.status === 4000){
+            if(res.status === 400){
                 dispatch({
                     type: authConstants.LOGIN_FAILURE,
                     payload: { error: res.data.error }
