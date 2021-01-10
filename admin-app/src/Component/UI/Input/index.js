@@ -4,7 +4,7 @@ const Input = (props) => {
     return (
         <div>
             <Form.Group controlId="formGridEmail">
-                <Form.Label>{props.label}</Form.Label>
+                {props.label && <Form.Label>{props.label}</Form.Label>}
                  <Form.Control 
                     type={props.type} 
                     placeholder={props.placeholder} 

@@ -37,7 +37,10 @@ const Products = (props) => {
 
             // children: Now it now working from API
             if(category.childreen.length >0) {
+
                 createCategoryList(category.childreen, option)
+
+                // (<ul className="">{renderCategories(category.childreen)
             }
         }
         return option;
@@ -78,6 +81,7 @@ const Products = (props) => {
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Category</th>
+                    <th>actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,15 +89,20 @@ const Products = (props) => {
                 {
                     product.products.length > 0 ? 
                     product.products.map(product => 
-                        <tr key={product._id} onClick={()=>showProductDetailsModal(product)}>
+                        <tr key={product._id}>
                             <td>1</td>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td>{product.quantity}</td>
                             <td>{product.category}</td>
+                            <td>
+                                <Button onClick={()=>showProductDetailsModal(product)} className="btn-primary btn-sm">View</Button>
+                                <Button className="btn-primary btn-sm">Edit</Button>
+                                <Button className="btn-danger btn-sm">Delete</Button>
+                            </td>
                         </tr>
                     )
-                    : null
+                    : 0
 
                 }
        
@@ -209,7 +218,7 @@ const Products = (props) => {
                         onChange={(e) => setCategoryId(e.target.value)}
                     >
                         {createCategoryList(category.categories).map((option) => (
-                            <option key={option.value} value={option.value}>
+                            <option key={option.value} value={option.value} className="children">
                                 {option.name}
                             </option>
                         ))}
