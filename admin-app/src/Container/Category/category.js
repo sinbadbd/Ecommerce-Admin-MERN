@@ -268,6 +268,7 @@ const Category = (props) => {
                                         </select>
                                     </Col>
                                     <Col>
+                                    
                                         <select className="form-control">
                                             <option>Select category</option>
                                             <option value="store">Store</option>
