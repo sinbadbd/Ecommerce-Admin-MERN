@@ -46,21 +46,28 @@ export const addCategory = (form) => {
 
 export const updateCategorys = (form) => {
     return async dispatch => {
-        // dispatch({type: categoryConstants.ADD_NEW_CATEGORY_REQUEST})
         const res = await axios.post('/category/update', form);
         console.log("res-update",res)
          if (res.status === 201){
-            console.log("res",res)
-            // dispatch({
-            //     // type: categoryConstants.ADD_NEW_CATEGORY_SUCCESS,
-            //     // payload: {category: res.data.category}
-            // })
+             return true
         }else {
-            console.log(res)
-            // dispatch({
-            //     // type: categoryConstants.ADD_NEW_CATEGORY_FAILURE,
-            //     // payload: res.data.error
-            // })
+            return false
         }
+    }
+}
+
+export const deleteCategorys = (ids) => {
+    return async dispatch => {
+        const res = await axios.post('/category/delete', {
+            payload: {
+                ids: ids
+            }
+        });
+        if (res.status === 200){
+            return true
+        }else {
+            return false
+        }
+    
     }
 }

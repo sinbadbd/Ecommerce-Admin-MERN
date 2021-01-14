@@ -28,15 +28,17 @@ const buildCategories = (parentId, categories, category) => {
 
         if( cat._id === parentId) { // FOR CHILREN
 
+            const newCategory = {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                parentId: category.parentId,
+                childreen: [],
+            }
+
             myCategories.push({ 
                 ...cat,
-                childreen: cat.childreen ? buildCategories(parentId,[...cat.childreen,{
-                    _id: category._id,
-                    name: category.name,
-                    slug: category.slug,
-                    parentId: category.parentId,
-                    childreen: category.childreen,
-                }], category): []
+                childreen: cat.childreen.length > 0 ? [...cat.childreen, newCategory] : [newCategory]
             })
         }else{
             myCategories.push({ 
