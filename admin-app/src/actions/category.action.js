@@ -66,7 +66,7 @@ export const deleteCategorys = (ids) => {
         dispatch({ type: categoryConstants.DELETE_CATEGORIES_REQUEST })
         const res = await axios.post('/category/delete', {
             payload: {
-                ids: ids
+                ids
             }
         });
         if (res.status === 201) {
