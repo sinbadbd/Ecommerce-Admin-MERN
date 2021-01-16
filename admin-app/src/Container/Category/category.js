@@ -169,12 +169,6 @@ const Category = (props) => {
 
             dispatch(deleteCategorys(checkedIdArray))
             setDeleteCategoryModal(false)
-            // .then(result => {
-            //     if(result){
-            //         dispatch(getAllCategory())
-            //         setDeleteCategoryModal(false)
-            //     }
-            // })
         }
         setDeleteCategoryModal(false)
 
@@ -182,7 +176,6 @@ const Category = (props) => {
     }
 
     const renderDeleteCategory = () => {
-        console.log('delete', checkArrays)
         return (
 
             <Modal
@@ -283,7 +276,8 @@ const Category = (props) => {
                 expandedArrays= {expandedArrays}
                 checkArrays={checkArrays}
                 handleCategoryInput={handleCategoryInput}
-                categoryList={createCategoryList(category.categories)}/>               
+                categoryList={createCategoryList(category.categories)}/> 
+
             {renderDeleteCategory()}
         </Layout>
     );
