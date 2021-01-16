@@ -35,7 +35,6 @@ const Category = (props) => {
     const [expanded, setexpanded] = useState([]);
     const [checkArrays, setcheckArrays] = useState([]);
     const [expandedArrays, setexpandedArrays] = useState([]);
-    // const [updateCategory, setupdateCategory] = useState(false);
     const [updateCategoryModal, setUpdateCategoryModal] = useState(false);
     const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
 
@@ -151,25 +150,32 @@ const Category = (props) => {
         setDeleteCategoryModal(true)
     }
     const deleteCategoryItem = () => {
-        const checkedIdArray = checkArrays.map((item, index) => ({
+            const checkedIdArray = checkArrays.map((item, index) => ({
             _id: item.value
-        })
+            })
         )
 
         const expandedIdArray = expandedArrays.map((item, index) => ({
             _id: item.value
-        })
+            })
         )
 
         const isArray = expandedIdArray.concat(checkedIdArray)
 
-        dispatch(deleteCategorys(isArray))
-        .then(result => {
-            if(result){
-                dispatch(getAllCategory())
-                setDeleteCategoryModal(false)
-            }
-        })
+        console.log(checkedIdArray)
+        if(checkedIdArray.length > 0){
+
+            dispatch(deleteCategorys(checkedIdArray))
+            setDeleteCategoryModal(false)
+            // .then(result => {
+            //     if(result){
+            //         dispatch(getAllCategory())
+            //         setDeleteCategoryModal(false)
+            //     }
+            // })
+        }
+        setDeleteCategoryModal(false)
+
 
     }
 
