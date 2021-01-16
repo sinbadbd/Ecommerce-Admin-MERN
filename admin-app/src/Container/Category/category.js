@@ -46,6 +46,12 @@ const Category = (props) => {
 
     const handleClose = () => {
         const form = new FormData();
+
+        // if(categoryName === ""){
+        //     alert("Name is required");
+        //     return;
+        // }
+
         form.append('name', categoryName);
         form.append('parentId', categoryParentId);
         form.append('categoryImage', categoryImage);
@@ -139,11 +145,6 @@ const Category = (props) => {
             form.append('type', item.type);
         });
         dispatch(updateCategorys(form))
-            .then(result => {
-                if (result) {
-                    dispatch(getAllCategory())
-                }
-            })
         setUpdateCategoryModal(false);
     }
 
