@@ -22,7 +22,8 @@ import {
     deleteCategorys
 } from "../../actions";
 
-import UpdateCategoriesModal from './Components/UpdateCategoriesModal'
+import UpdateCategoriesModal from './Components/UpdateCategoriesModal';
+import AddCategoryModal from './Components/AddCategoryModal';
 
 const Category = (props) => {
     const category = useSelector((state) => state.category);
@@ -216,39 +217,7 @@ const Category = (props) => {
     }
  
 
-    const renderAddCategory = () => {
-        return (
-            <Modal 
-                show={show} 
-                handleClose={handleClose} 
-                title={'Add Category'}>
-                <Form>
-                    <Input
-                        label="Category Name"
-                        placeholder="Name"
-                        value={categoryName}
-                        type="email"
-                        onChange={(e) => setcategoryName(e.target.value)}
-                    />
-                    <select className="form-control mb-3"
-                        value={categoryParentId}
-                        onChange={(e) => setcategoryParentId(e.target.value)}>
-                        <option>Select category</option>
-                        {
-                            createCategoryList(category.categories).map(option =>
-                                <option key={option.value} value={option.value}>{option.name}</option>)
-                        }
-                    </select>
-
-                    <div className="custom-file form-control">
-                        <input type="file" className="custom-file-input" name="categoryImage" onChange={handleCategoryImageChange}></input>
-                        <label className="custom-file-label"  >Choose file</label>
-                    </div>
-                </Form>
-
-            </Modal>
-        )
-    }
+    
 
     return (
         <Layout sidebar>
@@ -293,7 +262,18 @@ const Category = (props) => {
                     </Col>
                 </Row>
             </Container>
-
+            
+            <AddCategoryModal
+                show={show}
+                handleClose={handleClose}
+                modalTitle={'Add Category'}
+                categoryName={categoryName}
+                setcategoryName={setcategoryName}
+                setcategoryParentId={setcategoryParentId}
+                categoryParentId={categoryParentId}
+                categoryList={createCategoryList(category.categories)}
+                handleCategoryImageChange={handleCategoryImageChange}
+            />
 
             <UpdateCategoriesModal 
                 show={updateCategoryModal} 
@@ -304,8 +284,6 @@ const Category = (props) => {
                 checkArrays={checkArrays}
                 handleCategoryInput={handleCategoryInput}
                 categoryList={createCategoryList(category.categories)}/>               
-
-            { renderAddCategory()}
             {renderDeleteCategory()}
         </Layout>
     );

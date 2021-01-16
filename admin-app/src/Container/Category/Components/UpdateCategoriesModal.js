@@ -5,23 +5,23 @@ import Modal from "../../../Component/UI/Modal/index";
 
 const renderUpdateCategoryModal = (props) => {
 
-    const { 
-        show, 
+    const {
+        show,
         handleClose,
-        modalTitle, 
+        modalTitle,
         size,
         expandedArrays,
         checkArrays,
         handleCategoryInput,
         categoryList
     } = props;
- 
+
     return (
 
 
-        <Modal 
+        <Modal
             show={show}
-            handleClose={ handleClose}
+            handleClose={handleClose}
             title={modalTitle}
             size={size}>
             <Form>
