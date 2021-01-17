@@ -143,7 +143,11 @@ const Products = (props) => {
                         <label className="font-weight-bold mb-0">Category name:</label>
                     </Col>
                     <Col className="col-9">
-                        <p className="mb-0">{productDetails.category.name}</p>
+                        <p className="mb-0">
+                            {
+                               productDetails.category == null ? 'bug: need to fix :(' :  productDetails.category.name                          
+                            }
+                            </p>
                     </Col>
                 </Row>
                 <Row className="border border-top-0 border-left-0 border-right-0 py-2">

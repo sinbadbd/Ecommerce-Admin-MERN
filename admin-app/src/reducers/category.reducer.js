@@ -18,6 +18,7 @@ const buildCategories = (parentId, categories, category) => {
                 _id: category._id,
                 name: category.name,
                 slug: category.slug,
+                type: category.type,
                 childreen: []
             }
         ]
@@ -33,6 +34,7 @@ const buildCategories = (parentId, categories, category) => {
                 name: category.name,
                 slug: category.slug,
                 parentId: category.parentId,
+                type: category.type,
                 childreen: [],
             }
 
@@ -118,7 +120,7 @@ export default (state = initState, action) => {
             };
 
 
-            break;
+        break;
     }
     return state;
 };
