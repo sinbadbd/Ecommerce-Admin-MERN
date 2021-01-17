@@ -113,10 +113,7 @@ const renderUpdateCategoryModal = (props) => {
                         )
                     }
                 </Row>
-
-
             </Form>
-
         </Modal>
     )
 }

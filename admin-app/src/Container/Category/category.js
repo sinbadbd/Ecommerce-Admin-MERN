@@ -102,35 +102,20 @@ const Category = (props) => {
     }
     const updateCheckAndExpandedArrays = () => {
 
-        const categories = createCategoryList(category.categories);
+        const categories = createCategoryList(category.categories)
         const checkedArray = [];
         const expandedArray = [];
-        checked.length > 0 && checked.forEach((categoryId, index) => {
-            const category = categories.find((category, _index) => categoryId == category.value);
+        checked.length > 0 && checked.forEach((categoryParentId, index) => {
+            const category = categories.find((category, _index) => categoryParentId === category.value);
             category && checkedArray.push(category);
-        })
-        expanded.length > 0 && expanded.forEach((categoryId, index) => {
-            const category = categories.find((category, _index) => categoryId == category.value);
+        });
+
+        expanded.length > 0 && expanded.forEach((categoryParentId, index) => {
+            const category = categories.find((category, _index) => categoryParentId === category.value);
             category && expandedArray.push(category);
         })
-        setcheckArrays(checkedArray);
-        setexpandedArrays(expandedArray);
-
-
-        // const categories = createCategoryList(category.categories)
-        // const checkedArray = [];
-        // const expandedArray = [];
-        // checked.length > 0 && checked.forEach((categoryParentId, index) => {
-        //     const category = categories.find((category, _index) => categoryParentId === category.value);
-        //     category && checkedArray.push(category);
-        // });
-
-        // expanded.length > 0 && expanded.forEach((categoryParentId, index) => {
-        //     const category = categories.find((category, _index) => categoryParentId === category.value);
-        //     category && expandedArray.push(category);
-        // })
-        // setcheckArrays(checkedArray)
-        // setexpandedArrays(expandedArray)
+        setcheckArrays(checkedArray)
+        setexpandedArrays(expandedArray)
     }
 
     const handleCategoryInput = (key, value, index, type) => {
@@ -161,22 +146,6 @@ const Category = (props) => {
         });
         dispatch(updateCategorys(form));
         setUpdateCategoryModal(false);
-
-        // const form = new FormData();
-        // expandedArrays.forEach((item, index) => {
-        //     form.append('_id', item.value);
-        //     form.append('name', item.name);
-        //     form.append('parentId', item.parentId ? item.parentId : "");
-        //     form.append('type', item.type);
-        // });
-        // checkArrays.forEach((item, index) => {
-        //     form.append('_id', item.value);
-        //     form.append('name', item.name);
-        //     form.append('parentId', item.parentId ? item.parentId : "");
-        //     form.append('type', item.type);
-        // });
-        // dispatch(updateCategorys(form))
-        // setUpdateCategoryModal(false);
     }
 
     const deleteCategory = () => {
