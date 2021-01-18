@@ -74,40 +74,40 @@ const Products = (props) => {
     const renderProducts =() => {
         return (
             <Table responsive="sm mt-4">
-            <thead>
-                <tr>
-                    <th>#id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Category</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
+                <thead>
+                    <tr>
+                        <th>#id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Category</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                {
-                    product.products.length > 0 ? 
-                    product.products.map(product => 
-                        <tr key={product._id}>
-                            <td>1</td>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>{product.quantity}</td>
-                            <td>{product.category}</td>
-                            <td>
-                                <Button onClick={()=>showProductDetailsModal(product)} className="btn-primary btn-sm">View</Button>
-                                <Button className="btn-primary btn-sm">Edit</Button>
-                                <Button className="btn-danger btn-sm">Delete</Button>
-                            </td>
-                        </tr>
-                    )
-                    : 0
+                    {
+                        product.products.length > 0 ? 
+                        product.products.map(product => 
+                            <tr key={product._id}>
+                                <td>1</td>
+                                <td>{product.name}</td>
+                                <td>{product.price}</td>
+                                <td>{product.quantity}</td>
+                                <td>{product.category}</td>
+                                <td>
+                                    <Button onClick={()=>showProductDetailsModal(product)} className="btn-primary btn-sm">View</Button>
+                                    <Button className="btn-primary btn-sm">Edit</Button>
+                                    <Button className="btn-danger btn-sm">Delete</Button>
+                                </td>
+                            </tr>
+                        )
+                        : " "
 
-                }
-       
-            </tbody>
-        </Table>
+                    }
+        
+                </tbody>
+            </Table>
         )
     }
 
@@ -145,7 +145,7 @@ const Products = (props) => {
                     <Col className="col-9">
                         <p className="mb-0">
                             {
-                               productDetails.category == null ? 'bug: need to fix :(' :  productDetails.category.name                          
+                             //  productDetails.category == null ? 'bug: need to fix :(' :  productDetails.category.name                          
                             }
                             </p>
                     </Col>

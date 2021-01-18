@@ -9,7 +9,7 @@ export const addProduct = (form) => {
         if (res.status === 201) {
             dispatch({
                 type: productConstants.GET_ALL_PRODUCT_SUCCESS,
-                payload: { product: res.data.product },
+                payload: { product: res.data.product }
             });
         } else {
             dispatch({
