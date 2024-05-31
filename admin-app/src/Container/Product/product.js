@@ -27,8 +27,9 @@ const Products = (props) => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => { }, []);
-
+    useEffect(() => {
+        //dispatch(getProducts()); // Fetch products when component mounts
+    }, [dispatch]);
 
 
     const createCategoryList = (categories, option = []) => {
@@ -45,8 +46,7 @@ const Products = (props) => {
         }
         return option;
     };
-
-    const handleClose = () => {
+    const submitProductForm = () => {
         const form = new FormData();
         form.append("name", prouctName);
         form.append("price", price);
@@ -58,8 +58,18 @@ const Products = (props) => {
             form.append("productPicture", pic);
         }
 
-        dispatch(addProduct(form));
+        // dispatch(addProduct(form));
+        dispatch(addProduct(form)).then(() => setShow(false));
         // dispatch(addCategory(form));
+        refreshPage()
+
+    }
+    
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
+    const handleClose = () => {
 
         setShow(false);
     };
@@ -69,7 +79,15 @@ const Products = (props) => {
         console.log(productPictures);
     };
 
+    const handleCloseProduductDetailsModal = () => {
+        setProductDetailsModel(false)
+    }
 
+    const showProductDetailsModal = (product) => {
+        setProductDetails(product)
+        setProductDetailsModel(true)
+        console.log(product)
+    }
 
     const renderProducts =() => {
         return (
@@ -87,14 +105,14 @@ const Products = (props) => {
                 <tbody>
 
                     {
-                        product.products.length > 0 ? 
-                        product.products.map(product => 
+                        product.products?.length > 0 ? 
+                        product.products?.map((product, index) => 
                             <tr key={product._id}>
-                                <td>1</td>
+                                <td>{index + 1}</td>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>{product.quantity}</td>
-                                <td>{product.category}</td>
+                                <td>{product.category?.name}</td>
                                 <td>
                                     <Button onClick={()=>showProductDetailsModal(product)} className="btn-primary btn-sm">View</Button>
                                     <Button className="btn-primary btn-sm">Edit</Button>
@@ -111,15 +129,6 @@ const Products = (props) => {
         )
     }
 
-    const handleCloseProduductDetailsModal = () => {
-        setProductDetailsModel(false)
-    }
-
-    const showProductDetailsModal = (product) => {
-        setProductDetails(product)
-        setProductDetailsModel(true)
-        console.log(product)
-    }
     const renderProductDetailsModal = () => {
         if(!productDetails){
             return null
@@ -128,7 +137,9 @@ const Products = (props) => {
             <Modal size="lg"
                 show={productDetailsModel} 
                 handleClose={handleCloseProduductDetailsModal} 
-                title="Product Details">
+                title="Product Details"
+                onSubmit={handleCloseProduductDetailsModal}
+            >
 
                 <Row className="border border-top-0 border-left-0 border-right-0 py-2">
                     <Col className="col-3">
@@ -145,7 +156,8 @@ const Products = (props) => {
                     <Col className="col-9">
                         <p className="mb-0">
                             {
-                             //  productDetails.category == null ? 'bug: need to fix :(' :  productDetails.category.name                          
+                                productDetails.category?.name
+                            //   productDetails.category?.name == null ? 'bug: need to fix :(' :  productDetails.category.name                          
                             }
                             </p>
                     </Col>
@@ -184,8 +196,8 @@ const Products = (props) => {
                         <Row>
                             {
                                 productDetails.productPicture.length > 0 ? 
-                                    productDetails.productPicture.map(productPicture => 
-                                            <Col className="col-2">
+                                    productDetails.productPicture.map((productPicture, index) => 
+                                        <Col key={ index}  className="col-2">
                                                 <img className="img-fluid" src={generatePublicURL(productPicture.img)}></img>
                                             </Col>
                                     
@@ -195,11 +207,7 @@ const Products = (props) => {
                             }
                         </Row>
                     </Col>
-
-
-               
                 </Row>
-
             </Modal>
         )
     }
@@ -207,7 +215,13 @@ const Products = (props) => {
 
     const renderProductsModal = () => {
         return (
-            <Modal show={show} handleClose={handleClose} title={'Add Product'}>
+            <Modal
+                //show={show} handleClose={handleClose} title={'Add Product'}
+                show={show}
+                handleClose={handleClose}
+                modalTitle={"Add New Product"}
+                onSubmit={submitProductForm}
+            >
                 <Form>
                     <Input
                         label="Product Name"
