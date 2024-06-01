@@ -58,9 +58,8 @@ const Products = (props) => {
             form.append("productPicture", pic);
         }
 
-        // dispatch(addProduct(form));
         dispatch(addProduct(form)).then(() => setShow(false));
-        // dispatch(addCategory(form));
+
         refreshPage()
 
     }
@@ -198,7 +197,7 @@ const Products = (props) => {
                                 productDetails.productPicture.length > 0 ? 
                                     productDetails.productPicture.map((productPicture, index) => 
                                         <Col key={ index}  className="col-2">
-                                                <img className="img-fluid" src={generatePublicURL(productPicture.img)}></img>
+                                                <img className="img-fluid" src={productPicture.img}></img>
                                             </Col>
                                     
                                     )

@@ -43,6 +43,13 @@ const Category = (props) => {
     const dispatch = useDispatch();
 
 
+    // useEffect(() => {
+
+    //     if (!category.loading) {
+    //         setShow(false);
+    //     }
+
+    // }, [category.loading]);
 
     const handleClose = () => {
         const form = new FormData();
@@ -78,7 +85,6 @@ const Category = (props) => {
         }
         return myCategories;
     };
-
 
     const createCategoryList = (categories, option = []) => {
         for (let category of categories) {
@@ -182,6 +188,7 @@ const Category = (props) => {
             <Modal
                 show={deleteCategoryModal}
                 handleClose={() => setDeleteCategoryModal(false)}
+                onSubmit= {() => setDeleteCategoryModal(false)}
                 title={'Delete Category'}
                 buttons={[
                     {

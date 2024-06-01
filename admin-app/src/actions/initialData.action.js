@@ -22,7 +22,7 @@ export const getInitialData = () => {
             })
         }
 
-        console.log('ininitialData',res)
+       // console.log('ininitialData',res)
          
     }
     
