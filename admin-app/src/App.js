@@ -11,6 +11,7 @@ import { isUserLoggedIn, getInitialData , getAllCategory} from './actions'
 
 import { Route, Switch } from "react-router-dom";
 import Products from './Container/Product/product';
+import AddProduct from './Container/Product/addProduct';
 import Orders from './Container/Order/Orders';
 import Category from './Container/Category/category';
 
@@ -34,6 +35,7 @@ function App() {
         
         <PrivateRoute path="/category" component={Category} />
         <PrivateRoute path="/products" component={Products} />
+        <PrivateRoute path="/add-product" component={AddProduct} />
         <PrivateRoute path="/orders" component={Orders} />
 
         <Route path="/signin" component={SignIn} />
