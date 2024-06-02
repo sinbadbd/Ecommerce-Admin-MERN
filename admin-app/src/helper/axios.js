@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
     baseURL: api,
     headers: {
         'Content-Type': 'application/json',
-        // 'Content-Type': 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
         'Authorization': token ? `Bearer ${token}` : '' 
     }
 });

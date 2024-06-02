@@ -6,11 +6,6 @@ export const addProduct = (form) => {
     return async (dispatch) => {
 
         dispatch({ type: productConstants.GET_ALL_PRODUCT_REQUEST });
-
-        // Define headers
-        const headers = {
-            'Content-Type': 'multipart/form-data',
-        };
         
         try {
             const res = await axios.post("product/create", form);

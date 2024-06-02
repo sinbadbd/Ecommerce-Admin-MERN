@@ -212,78 +212,78 @@ const Products = (props) => {
     }
 
 
-    const renderProductsModal = () => {
-        return (
-            <Modal
-                //show={show} handleClose={handleClose} title={'Add Product'}
-                show={show}
-                handleClose={handleClose}
-                modalTitle={"Add New Product"}
-                onSubmit={submitProductForm}
-            >
-                <Form>
-                    <Input
-                        label="Product Name"
-                        placeholder="Product Name"
-                        value={prouctName}
-                        type="text"
-                        onChange={(e) => setProuctName(e.target.value)}
-                    />
-                    <select
-                        className="form-control mb-3"
-                        value={categoryId}
-                        onChange={(e) => setCategoryId(e.target.value)}
-                    >
-                        {createCategoryList(category.categories).map((option) => (
-                            <option key={option.value} value={option.value} className="children">
-                                {option.name}
-                            </option>
-                        ))}
-                    </select>
-                    <Input
-                        label="Price"
-                        placeholder="price"
-                        value={price}
-                        type="number"
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
+    // const renderProductsModal = () => {
+    //     return (
+    //         <Modal
+    //             //show={show} handleClose={handleClose} title={'Add Product'}
+    //             show={show}
+    //             handleClose={handleClose}
+    //             modalTitle={"Add New Product"}
+    //             onSubmit={submitProductForm}
+    //         >
+    //             <Form>
+    //                 <Input
+    //                     label="Product Name"
+    //                     placeholder="Product Name"
+    //                     value={prouctName}
+    //                     type="text"
+    //                     onChange={(e) => setProuctName(e.target.value)}
+    //                 />
+    //                 <select
+    //                     className="form-control mb-3"
+    //                     value={categoryId}
+    //                     onChange={(e) => setCategoryId(e.target.value)}
+    //                 >
+    //                     {createCategoryList(category.categories).map((option) => (
+    //                         <option key={option.value} value={option.value} className="children">
+    //                             {option.name}
+    //                         </option>
+    //                     ))}
+    //                 </select>
+    //                 <Input
+    //                     label="Price"
+    //                     placeholder="price"
+    //                     value={price}
+    //                     type="number"
+    //                     onChange={(e) => setPrice(e.target.value)}
+    //                 />
 
-                    <Input
-                        label="Quantity"
-                        placeholder="Quantity"
-                        value={quantity}
-                        type="number"
-                        onChange={(e) => setQuantity(e.target.value)}
-                    />
-                    <Input
-                        label="Description"
-                        placeholder="Description"
-                        value={description}
-                        type="text"
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <div className="custom-file form-control">
-                        <input
-                            type="file"
-                            className="custom-file-input"
-                            name="productPicture"
-                            onChange={handleProductPicture}
-                        ></input>
-                        <label className="custom-file-label">Choose file</label>
-                    </div>
+    //                 <Input
+    //                     label="Quantity"
+    //                     placeholder="Quantity"
+    //                     value={quantity}
+    //                     type="number"
+    //                     onChange={(e) => setQuantity(e.target.value)}
+    //                 />
+    //                 <Input
+    //                     label="Description"
+    //                     placeholder="Description"
+    //                     value={description}
+    //                     type="text"
+    //                     onChange={(e) => setDescription(e.target.value)}
+    //                 />
+    //                 <div className="custom-file form-control">
+    //                     <input
+    //                         type="file"
+    //                         className="custom-file-input"
+    //                         name="productPicture"
+    //                         onChange={handleProductPicture}
+    //                     ></input>
+    //                     <label className="custom-file-label">Choose file</label>
+    //                 </div>
 
-                    {productPictures.length > 0
-                        ? productPictures.map((pic, index) => (
-                            <div key={index}>{pic.name}</div>
-                        ))
-                        : null}
+    //                 {productPictures.length > 0
+    //                     ? productPictures.map((pic, index) => (
+    //                         <div key={index}>{pic.name}</div>
+    //                     ))
+    //                     : null}
 
                       
-                </Form>
+    //             </Form>
 
-            </Modal>
-        )
-    }
+    //         </Modal>
+    //     )
+    // }
 
     return (
         <Layout sidebar>
@@ -307,7 +307,7 @@ const Products = (props) => {
                 </Row>
             </Container>
 
-            { renderProductsModal()}
+            {/* { renderProductsModal()} */}
             { renderProductDetailsModal() }
         </Layout>
     );
