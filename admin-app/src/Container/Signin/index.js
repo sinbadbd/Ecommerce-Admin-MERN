@@ -38,10 +38,8 @@ const SignIn = (props) => {
 
         setError(''); // Clear any previous errors
 
-        const user = {
-            email,
-            password,
-        };
+        const user = { email, password };
+        
         dispatch(login(user));
     };
 

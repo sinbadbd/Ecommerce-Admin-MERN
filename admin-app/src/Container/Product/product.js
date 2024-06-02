@@ -60,7 +60,7 @@ const Products = (props) => {
 
         dispatch(addProduct(form)).then(() => setShow(false));
 
-        refreshPage()
+        //refreshPage()
 
     }
     
@@ -290,7 +290,7 @@ const Products = (props) => {
             <Container>
                 <Row className="pt-4">
                     <Col md={10}>
-                        <h4>Products</h4>
+                        <h4 className="text-3xl font-bold underline">Products</h4>
                     </Col>
                     <Col>
                         <Button variant="primary" onClick={handleShow}>
