@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../Component/Layout";
-import { Col, Container, Row, Button, Form, Table } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../actions";
-
-import Input from "../../Component/UI/Input/index";
+import { DataGrid } from '@mui/x-data-grid';
 import Modal from "../../Component/UI/Modal/index";
-import {generatePublicURL} from "../../UrlConfig"
 
-const Products = (props) => {
-    const [prouctName, setProuctName] = useState("");
-    const [price, setPrice] = useState("");
-    const [quantity, setQuantity] = useState("");
-    const [description, setDescription] = useState("");
-    const [productPictures, setProductPictures] = useState([]);
-    const [categoryId, setCategoryId] = useState("");
-    const [reviews, setReviews] = useState("");
+const Products = () => {
     const [productDetailsModel, setProductDetailsModel] = useState(false);
     const [productDetails, setProductDetails] = useState(null);
     const [show, setShow] = useState(false);
@@ -28,118 +19,31 @@ const Products = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        //dispatch(getProducts()); // Fetch products when component mounts
+        // dispatch(getProducts()); // Fetch products when component mounts
     }, [dispatch]);
 
-
-    const createCategoryList = (categories, option = []) => {
-        for (let category of categories) {
-            option.push({ value: category._id, name: category.name });
-
-            // children: Now it now working from API
-            if(category.childreen.length >0) {
-
-                createCategoryList(category.childreen, option)
-
-                // (<ul className="">{renderCategories(category.childreen)
-            }
-        }
-        return option;
+    const handleCloseProductDetailsModal = () => {
+        setProductDetailsModel(false);
     };
-    const submitProductForm = () => {
-        const form = new FormData();
-        form.append("name", prouctName);
-        form.append("price", price);
-        form.append("quantity", quantity);
-        form.append("description", description);
-        form.append("category", categoryId);
-
-        for (let pic of productPictures) {
-            form.append("productPicture", pic);
-        }
-
-        dispatch(addProduct(form)).then(() => setShow(false));
-
-        //refreshPage()
-
-    }
-    
-    function refreshPage(){ 
-        window.location.reload(); 
-    }
-
-    const handleClose = () => {
-
-        setShow(false);
-    };
-
-    const handleProductPicture = (e) => {
-        setProductPictures([...productPictures, e.target.files[0]]);
-        console.log(productPictures);
-    };
-
-    const handleCloseProduductDetailsModal = () => {
-        setProductDetailsModel(false)
-    }
 
     const showProductDetailsModal = (product) => {
-        setProductDetails(product)
-        setProductDetailsModel(true)
-        console.log(product)
-    }
-
-    const renderProducts =() => {
-        return (
-            <Table responsive="sm mt-4">
-                <thead>
-                    <tr>
-                        <th>#id</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Category</th>
-                        <th>actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {
-                        product.products?.length > 0 ? 
-                        product.products?.map((product, index) => 
-                            <tr key={product._id}>
-                                <td>{index + 1}</td>
-                                <td>{product.name}</td>
-                                <td>{product.price}</td>
-                                <td>{product.quantity}</td>
-                                <td>{product.category?.name}</td>
-                                <td>
-                                    <Button onClick={()=>showProductDetailsModal(product)} className="btn-primary btn-sm">View</Button>
-                                    <Button className="btn-primary btn-sm">Edit</Button>
-                                    <Button className="btn-danger btn-sm">Delete</Button>
-                                </td>
-                            </tr>
-                        )
-                        : " "
-
-                    }
-        
-                </tbody>
-            </Table>
-        )
-    }
+        setProductDetails(product);
+        setProductDetailsModel(true);
+        console.log(product);
+    };
 
     const renderProductDetailsModal = () => {
-        if(!productDetails){
-            return null
+        if (!productDetails) {
+            return null;
         }
         return (
-            <Modal size="lg"
-                show={productDetailsModel} 
-                handleClose={handleCloseProduductDetailsModal} 
+            <Modal
+                size="lg"
+                show={productDetailsModel}
+                handleClose={handleCloseProductDetailsModal}
                 title="Product Details"
-                onSubmit={handleCloseProduductDetailsModal}
+                onSubmit={handleCloseProductDetailsModal}
             >
-
                 <Row className="border border-top-0 border-left-0 border-right-0 py-2">
                     <Col className="col-3">
                         <label className="font-weight-bold mb-0">Name:</label>
@@ -154,11 +58,8 @@ const Products = (props) => {
                     </Col>
                     <Col className="col-9">
                         <p className="mb-0">
-                            {
-                                productDetails.category?.name
-                            //   productDetails.category?.name == null ? 'bug: need to fix :(' :  productDetails.category.name                          
-                            }
-                            </p>
+                            {productDetails.category}
+                        </p>
                     </Col>
                 </Row>
                 <Row className="border border-top-0 border-left-0 border-right-0 py-2">
@@ -185,105 +86,55 @@ const Products = (props) => {
                         <p className="mb-0">{productDetails.description}</p>
                     </Col>
                 </Row>
-
-                <Row className=" py-2">
-
+                <Row className="py-2">
                     <Col className="col-3">
                         <label className="font-weight-bold">Product Image</label>
                     </Col>
                     <Col className="col-9">
                         <Row>
-                            {
-                                productDetails.productPicture.length > 0 ? 
-                                    productDetails.productPicture.map((productPicture, index) => 
-                                        <Col key={ index}  className="col-2">
-                                                <img className="img-fluid" src={productPicture.img}></img>
-                                            </Col>
-                                    
-                                    )
-                                : ('No image uploaded!')
-                                
-                            }
+                            {productDetails.productPicture && productDetails.productPicture.length > 0 ? (
+                                productDetails.productPicture.map((pic, index) => (
+                                    <Col key={index} className="col-2">
+                                        <img className="img-fluid" src={pic} alt="product" />
+                                    </Col>
+                                ))
+                            ) : (
+                                'No image uploaded!'
+                            )}
                         </Row>
                     </Col>
                 </Row>
             </Modal>
-        )
-    }
+        );
+    };
 
+    const columns = [
+        { field: 'id', headerName: 'ID', width: 90 },
+        { field: 'name', headerName: 'Name', width: 150, editable: true },
+        { field: 'price', headerName: 'Price', width: 150, editable: true },
+        { field: 'quantity', headerName: 'Quantity', width: 110, editable: true },
+        { field: 'category', headerName: 'Category', width: 150, editable: true },
+        {
+            field: 'actions',
+            headerName: 'Actions',
+            width: 200,
+            renderCell: (params) => (
+                < div className="flex gap-2">
+                    <Button onClick={() => showProductDetailsModal(params.row)} className="btn-success btn-outline btn-sm">View</Button>
+                    <Button className="btn-primary btn-sm">Edit</Button>
+                    <Button className="btn-danger btn-sm">Delete</Button>
+                </div>
+            )
+        }
+    ];
 
-    // const renderProductsModal = () => {
-    //     return (
-    //         <Modal
-    //             //show={show} handleClose={handleClose} title={'Add Product'}
-    //             show={show}
-    //             handleClose={handleClose}
-    //             modalTitle={"Add New Product"}
-    //             onSubmit={submitProductForm}
-    //         >
-    //             <Form>
-    //                 <Input
-    //                     label="Product Name"
-    //                     placeholder="Product Name"
-    //                     value={prouctName}
-    //                     type="text"
-    //                     onChange={(e) => setProuctName(e.target.value)}
-    //                 />
-    //                 <select
-    //                     className="form-control mb-3"
-    //                     value={categoryId}
-    //                     onChange={(e) => setCategoryId(e.target.value)}
-    //                 >
-    //                     {createCategoryList(category.categories).map((option) => (
-    //                         <option key={option.value} value={option.value} className="children">
-    //                             {option.name}
-    //                         </option>
-    //                     ))}
-    //                 </select>
-    //                 <Input
-    //                     label="Price"
-    //                     placeholder="price"
-    //                     value={price}
-    //                     type="number"
-    //                     onChange={(e) => setPrice(e.target.value)}
-    //                 />
-
-    //                 <Input
-    //                     label="Quantity"
-    //                     placeholder="Quantity"
-    //                     value={quantity}
-    //                     type="number"
-    //                     onChange={(e) => setQuantity(e.target.value)}
-    //                 />
-    //                 <Input
-    //                     label="Description"
-    //                     placeholder="Description"
-    //                     value={description}
-    //                     type="text"
-    //                     onChange={(e) => setDescription(e.target.value)}
-    //                 />
-    //                 <div className="custom-file form-control">
-    //                     <input
-    //                         type="file"
-    //                         className="custom-file-input"
-    //                         name="productPicture"
-    //                         onChange={handleProductPicture}
-    //                     ></input>
-    //                     <label className="custom-file-label">Choose file</label>
-    //                 </div>
-
-    //                 {productPictures.length > 0
-    //                     ? productPictures.map((pic, index) => (
-    //                         <div key={index}>{pic.name}</div>
-    //                     ))
-    //                     : null}
-
-                      
-    //             </Form>
-
-    //         </Modal>
-    //     )
-    // }
+    const rows = product.products?.map((prod, index) => ({
+        id: prod._id,
+        name: prod.name,
+        price: prod.price,
+        quantity: prod.quantity,
+        category: prod.category?.name,
+    })) || [];
 
     return (
         <Layout sidebar>
@@ -295,20 +146,25 @@ const Products = (props) => {
                     <Col>
                         <Button variant="primary" onClick={handleShow}>
                             Add
-            </Button>{" "}
+                        </Button>{" "}
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div>
-                             {renderProducts()}
+                        <div style={{ height: 800, width: '100%' }}>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={50}
+                                rowsPerPageOptions={[5]}
+                                checkboxSelection
+                                disableSelectionOnClick
+                            />
                         </div>
                     </Col>
                 </Row>
             </Container>
-
-            {/* { renderProductsModal()} */}
-            { renderProductDetailsModal() }
+            {renderProductDetailsModal()}
         </Layout>
     );
 };
